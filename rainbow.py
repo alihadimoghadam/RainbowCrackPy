@@ -15,7 +15,6 @@ def hash_password_hack(input_file_name, output_file_name) :
             hash_jadid = sha256(str(i).encode())
             hash_jadid = hash_jadid.hexdigest()
             hp[hash_jadid] = i
-        # halghe aval name va hash ra khat be khat az file input mikhanad. halghe dovom check mikonad hash haye mojod
         # the first loop will check the hashes in the input file and the second loop will check the hashes in the dictionary
         # compares the hashes in the hp dictionary if they are the same
         # names are inserted to a dictionary named new_hp
