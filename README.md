@@ -1,68 +1,51 @@
-# Rainbow Hack
+# Rainbow
 
-Welcome to Rainbow Hack! This repository contains a collection of colorful and fun hacking scripts, designed to add a touch of color to your hacking adventures.
+`Rainbow` is a Python script designed to crack numerical password hashes using a pre-computed hash table approach. It is specifically tailored to process CSV files containing usernames and their corresponding SHA-256 hash values, attempting to reverse-engineer the hash back into a four-digit numerical password.
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+## Features
 
-## Introduction
-Rainbow Hack is a project aimed at bringing a vibrant and playful twist to the world of hacking. The scripts included in this repository allow you to perform various hacking-related tasks while enjoying a visually appealing and colorful interface.
+- Efficient hash cracking for numerical passwords: specifically targets passwords in the range of 1000 to 9999.
+- CSV input/output: reads user-hash pairs from an input CSV file and writes cracked passwords to an output CSV file.
+- Logging: detailed logging to track the process flow and identify potential issues.
 
-## Installation
-To use Rainbow Hack, you need to have Python 3.x installed on your machine. You can follow these steps to get started:
+## Requirements
 
-1. Clone this repository to your local machine using the following command:
-   ```
-   git clone https://github.com/alihadimoghadam/rainbow-hack.git
-   ```
-
-2. Navigate to the project directory:
-   ```
-   cd rainbow-hack
-   ```
-
-3. Install the required dependencies by running:
-   ```
-   pip install -r requirements.txt
-   ```
-
-4. You're all set! You can now explore the various scripts and start hacking in style.
+- Python 3.x
+- No external Python libraries are required beyond the standard library.
 
 ## Usage
-To run any of the scripts, simply execute the corresponding Python file using the following command:
-```
-python script_name.py
-```
 
-Each script comes with its own set of options and functionalities. Make sure to read the script's documentation and comments to understand how to use it effectively.
+1. Prepare an input CSV file with the following format:
+   ```
+   username,hash
+   john,5e884898da28047151d0e56f8dc6292773603f8186d01823
+   jane,ee26b0dd4af7e749aa1a8ee3c10aef57247cf9733dd0ad90
+   ```
+
+2. Run the script using Python, providing the input and output file names:
+   ```
+   python rainbow.py input.csv output.csv
+   ```
+
+3. After execution, the output CSV file will contain the cracked passwords:
+   ```
+   john,1234
+   jane,5678
+   ```
+
+## How It Works
+
+The script pre-computes SHA-256 hashes for all numbers in the range 1000 to 9999 and stores them in a dictionary. When reading the input file, it compares each hash against this dictionary. If a match is found, the script deduces that the original password was the number that corresponds to the hash.
+
+## Limitations
+
+- The script only works with numerical passwords in the specified range.
+- It is not designed for cracking more complex or longer passwords outside of the pre-defined scope.
 
 ## Contributing
-Contributions are welcome and appreciated! If you have any ideas, improvements, or bug fixes, please follow these steps:
 
-1. Fork the repository.
-
-2. Create a new branch for your feature or bug fix:
-   ```
-   git checkout -b feature/your-feature-name
-   ```
-
-3. Make your changes and commit them with a descriptive message:
-   ```
-   git commit -m "Add your commit message here"
-   ```
-
-4. Push your changes to your branch:
-   ```
-   git push origin feature/your-feature-name
-   ```
-
-5. Open a pull request and describe the changes you've made.
-
-Please ensure that your code follows the repository's coding conventions and includes any necessary documentation or tests.
+Contributions to `Rainbow` are welcome. Please ensure to follow best coding practices and include tests where applicable.
 
 ## License
-This project is licensed under the [MIT License](LICENSE). Feel free to modify and distribute this code as per the terms of the license.
+
+`Rainbow` is open-sourced software licensed under the MIT license.
