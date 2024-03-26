@@ -37,8 +37,8 @@ def hash_password_hack(input_file_name, output_file_name):
     logging.info('Process completed.')
 
 # Here you specify the path directly when calling the function
-input_file_path = r"C:\Users\ASUS\Github\rainbow-hack\test_passwords.csv"
-output_file_path = r"C:\Users\ASUS\Github\rainbow-hack\cracked_passwords.csv"
+input_file_path = "-"
+output_file_path = "-"
 
 # Call the function with the specified paths
 hash_password_hack(input_file_path, output_file_path)
