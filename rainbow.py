@@ -1,6 +1,7 @@
 from hashlib import sha256
 import csv
 import logging
+from tqdm import tqdm
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -12,7 +13,7 @@ def hash_password_hack(input_file_name, output_file_name):
     :param output_file_name: Path to the output CSV file to write hacked passwords.
     """
     logging.info('Pre-computing hashes.')
-    hp = {sha256(str(i).encode()).hexdigest(): i for i in range(1000, 9999)}
+    hp = {sha256(str(i).encode()).hexdigest(): i for i in tqdm(range(1000, 9999), desc='Computing hashes')}
 
     new_hp = {}
 
@@ -20,15 +21,16 @@ def hash_password_hack(input_file_name, output_file_name):
         logging.info('Reading input file and attempting to hack passwords.')
         with open(input_file_name, 'r') as fin:
             reader = csv.reader(fin)
-            for row in reader:
+            rows = list(reader)  # Convert iterator to list to get length for tqdm
+            for row in tqdm(rows, desc='Processing rows'):
                 name, hash_value = row
                 if hash_value in hp:
                     new_hp[name] = hp[hash_value]
 
         logging.info('Writing hacked passwords to output file.')
-        with open(output_file_name, 'w', newline='') as fout:
+        with open(output_file_path, 'w', newline='') as fout:
             writer = csv.writer(fout)
-            for name, password in new_hp.items():
+            for name, password in tqdm(new_hp.items(), desc='Writing output'):
                 writer.writerow([name, password])
 
     except Exception as e:
@@ -36,9 +38,9 @@ def hash_password_hack(input_file_name, output_file_name):
 
     logging.info('Process completed.')
 
-# Here you specify the path directly when calling the function
-input_file_path = "-"
-output_file_path = "-"
+# Paths should be replaced with actual file paths
+input_file_path = "path/to/input/file"
+output_file_path = "path/to/output/file"
 
 # Call the function with the specified paths
 hash_password_hack(input_file_path, output_file_path)
